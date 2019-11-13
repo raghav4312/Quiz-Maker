@@ -5,7 +5,7 @@ let btnLogout = document.getElementById('btnLogout');
 let btnCancel = document.getElementById('btnCancel');
 let btnAdd = document.getElementById('btnAdd');
 let btnEdit = document.getElementById('btnEdit');
-
+let quesDiv = document.getElementById('quesDiv');
 
 if(btnLogin!=null)
 btnLogin.addEventListener('click',login);
@@ -19,6 +19,8 @@ if(btnCancel!=null)
 btnCancel.addEventListener('click',()=>{});
 if(btnEdit!=null)
 btnEdit.addEventListener('click',editQuestion);
+if(quesDiv!=null)
+quesDiv.addEventListener('click',quesFunc);
 
 //getting forms
 let loginForm = document.getElementById('loginForm');
@@ -138,6 +140,44 @@ function addQuestion(e)
         $('#errorAdd').removeClass('d-none').addClass('d-block');
         setTimeout(()=>{
           $('#errorAdd').addClass('d-none').removeClass('d-block');
+        },2000);
+      }
+    }
+  })
+}
+
+function editQuestion(e)
+{
+  e.preventDefault();
+  $.ajax({
+    type:'POST',
+    url:'/ques/editQuestion',
+    data:{
+      id:editQuestionForm.qid.value,
+      title:editQuestionForm.title.value,
+      desc:editQuestionForm.desc.value,
+      option1:editQuestionForm.option1.value,
+      option2:editQuestionForm.option2.value,
+      option3:editQuestionForm.option3.value,
+      option4:editQuestionForm.option4.value,
+      option5:editQuestionForm.option5.value,
+      option6:editQuestionForm.option6.value,
+      answer:editQuestionForm.answer.value
+    },
+    success:(data,status)=>{
+      if(data.error==null)
+      {
+        $('#successEdit').removeClass('d-none').addClass('d-block');
+        setTimeout(()=>{
+          $('#successEdit').addClass('d-none').removeClass('d-block');
+          window.location.href="/";
+        },2000);
+      }
+      else
+      {
+        $('#errorEdit').removeClass('d-none').addClass('d-block');
+        setTimeout(()=>{
+          $('#errorEdit').addClass('d-none').removeClass('d-block');
         },2000);
       }
     }

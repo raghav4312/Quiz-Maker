@@ -31,9 +31,11 @@ app.use(bodyParser.json());
 
 const userRoutes = require('./routes/userRoutes');
 const quesRoutes = require('./routes/quesRoutes');
+const testRoutes = require('./routes/testRoutes');
 
 app.use('/user',userRoutes);
 app.use('/ques',quesRoutes);
+app.use('/test',testRoutes);
 
 app.get('/',(req,res)=>{
   res.send("Hello world!!!");
