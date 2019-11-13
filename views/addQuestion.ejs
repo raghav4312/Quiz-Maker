@@ -1,0 +1,27 @@
+<% include header.ejs%>
+<div class="container">
+  <div class="alert text-center alert-success d-none" role="alert" id="successAdd">
+      Question Added!
+  </div>
+  <div class="alert alert-danger text-center d-none" role="alert" id="errorAdd">
+      Something Went Wrong!
+  </div>
+  <div style="max-width: 750px;margin: 50px auto;" class="bg-light p-5">
+    <h2 class="text-center m-4">Add Question form</h2>
+    <form action="/ques/addQuestion" method="post" id="addQuestionForm">
+      <input type="text" name="title" placeholder="Enter the Question Title" class="form-control" required><br>
+      <input type="text" class="form-control" name="desc" id="" placeholder="Enter the description" required><br>
+      <input type="text" class="form-control" name="option1" id="" placeholder="Enter the First Option" required><br>
+      <input type="text" class="form-control" name="option2" id="" placeholder="Enter the Second Option" required><br>
+      <input type="text" class="form-control" name="option3" id="" placeholder="Enter the Third Option" required><br>
+      <input type="text" class="form-control" name="option4" id="" placeholder="Enter the Fourth Option" required><br>
+      <input type="text" class="form-control" name="option5" id="" placeholder="Enter the Fifth Option (optional)" ><br>
+      <input type="text" class="form-control" name="option6" id="" placeholder="Enter the Sixth Option (optional)" ><br>
+      <input type="text" class="form-control" name="answer" id="" placeholder="Enter the Correct Answer" required><br>
+      <input type="button" id="btnAdd" class="form-control btn btn-info" value="Add Question">
+      <button id="btnCancel" class="btnCancel form-control btn btn-danger mt-3">Cancel</button>
+    </form>
+  </div>  
+</div>
+
+<% include footer.ejs%>

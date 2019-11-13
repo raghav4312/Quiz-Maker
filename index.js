@@ -30,8 +30,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 const userRoutes = require('./routes/userRoutes');
+const quesRoutes = require('./routes/quesRoutes');
 
 app.use('/user',userRoutes);
+app.use('/ques',quesRoutes);
 
 app.get('/',(req,res)=>{
   res.send("Hello world!!!");

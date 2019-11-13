@@ -2,6 +2,9 @@
 let btnLogin = document.getElementById('btnLogin');
 let btnRegister = document.getElementById('btnRegister');
 let btnLogout = document.getElementById('btnLogout');
+let btnCancel = document.getElementById('btnCancel');
+let btnAdd = document.getElementById('btnAdd');
+let btnEdit = document.getElementById('btnEdit');
 
 
 if(btnLogin!=null)
@@ -10,6 +13,18 @@ if(btnRegister!=null)
 btnRegister.addEventListener('click',register);
 if(btnLogout!=null)
 btnLogout.addEventListener('click',logout);
+if(btnAdd!=null)
+btnAdd.addEventListener('click',addQuestion);
+if(btnCancel!=null)
+btnCancel.addEventListener('click',()=>{});
+if(btnEdit!=null)
+btnEdit.addEventListener('click',editQuestion);
+
+//getting forms
+let loginForm = document.getElementById('loginForm');
+let registerForm = document.getElementById('registerForm');
+let addQuestionForm = document.getElementById('addQuestionForm');
+let editQuestionForm = document.getElementById('editQuestionForm');
 
 function login(e){
   e.preventDefault();
@@ -87,6 +102,44 @@ function logout(){
       }
       else
       console.log(data.error);
+    }
+  })
+}
+
+
+function addQuestion(e)
+{
+  e.preventDefault();
+  $.ajax({
+    type:'POST',
+    url:'/ques/addQuestion',
+    data:{
+      title:addQuestionForm.title.value,
+      desc:addQuestionForm.desc.value,
+      option1:addQuestionForm.option1.value,
+      option2:addQuestionForm.option2.value,
+      option3:addQuestionForm.option3.value,
+      option4:addQuestionForm.option4.value,
+      option5:addQuestionForm.option5.value,
+      option6:addQuestionForm.option6.value,
+      answer:addQuestionForm.answer.value
+    },
+    success:(data,status)=>{
+      if(data.error==null)
+      {
+        $('#successAdd').removeClass('d-none').addClass('d-block');
+        setTimeout(()=>{
+          $('#successAdd').addClass('d-none').removeClass('d-block');
+          window.location.href="/";
+        },750);
+      }
+      else
+      {
+        $('#errorAdd').removeClass('d-none').addClass('d-block');
+        setTimeout(()=>{
+          $('#errorAdd').addClass('d-none').removeClass('d-block');
+        },2000);
+      }
     }
   })
 }
