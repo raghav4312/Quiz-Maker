@@ -183,3 +183,33 @@ function editQuestion(e)
     }
   })
 }
+
+function quesFunc(e)
+{
+  if(e.target.classList.contains('addToTest'))
+  {
+    let id = e.target.parentElement.parentElement.id;
+    $.ajax({
+      type:'POST',
+      url:'/test/addQuestion',
+      data:{
+        qid:id
+      },
+      success:(data,status)=>{
+        if(data.error==null)
+        {
+          e.target.nextElementSibling.classList.add('d-block');
+          e.target.nextElementSibling.classList.remove('d-none');
+          e.target.remove();
+        }
+        else
+        {
+          $('#errorAddToTest').removeClass('d-none').addClass('d-block');
+          setTimeout(()=>{
+          $('#errorAddToTest').addClass('d-none').removeClass('d-block');
+          },2000);
+        }
+      }
+    })
+  }
+}

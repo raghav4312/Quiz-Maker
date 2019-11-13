@@ -1,5 +1,7 @@
 <%include header.ejs%>
-
+<div class="alert alert-danger d-none" role="alert" id="errorAddToTest">
+    Question may already be added in the test
+</div>
 <div class="container">
   
   <div id="divListOfQuestion">
@@ -16,6 +18,7 @@
                   <%}%>
                   </ul>
                   <button class="btn btn-outline-info w-100 addToTest" type="button">Add</button>
+                  <span class="text-center d-none text-success">Added</span>
               </div>                  
           </div>
           <%}%>
