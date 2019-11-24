@@ -73,6 +73,21 @@ router.post('/editQuestion',(req,res)=>{
   })
 })
 
+router.post('/deleteQuestion',(req,res)=>{
+  question.findByIdAndUpdate(`${req.body.id}`,{
+    isActive:false
+  },(err,data)=>{
+    if(err){
+      console.log(err);
+      res.send({error:err});
+    }
+    else{
+      console.log(data);
+      res.send({error:null});
+    }
+  })
+})
+
 
 
 module.exports = router;

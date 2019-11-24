@@ -46,7 +46,7 @@ app.get('/',(req,res)=>{
       if(err)
       console.log(err);
       else
-      res.render('question',{user:req.session.loggedInUser.name})
+      res.render('question',{user:req.session.loggedInUser.name,data:data})
     })
     }
     else

@@ -16,7 +16,7 @@ btnLogout.addEventListener('click',logout);
 if(btnAdd!=null)
 btnAdd.addEventListener('click',addQuestion);
 if(btnCancel!=null)
-btnCancel.addEventListener('click',()=>{});
+btnCancel.addEventListener('click',()=>{window.location.href="/";});
 if(btnEdit!=null)
 btnEdit.addEventListener('click',editQuestion);
 if(quesDiv!=null)
@@ -207,6 +207,33 @@ function quesFunc(e)
           $('#errorAddToTest').removeClass('d-none').addClass('d-block');
           setTimeout(()=>{
           $('#errorAddToTest').addClass('d-none').removeClass('d-block');
+          },2000);
+        }
+      }
+    })
+  }
+  else if(e.target.classList.contains('delBtn')){
+    let id = e.target.parentElement.parentElement.id;
+    $.ajax({
+      type:'POST',
+      url:'/ques/deleteQuestion',
+      data:{
+        id:id
+      },
+      success:(data,status)=>{
+        if(data.error==null)
+        {
+          document.getElementById(id).remove();
+          $('#successDel').removeClass('d-none').addClass('d-block');
+          setTimeout(()=>{
+            $('#successDel').addClass('d-none').removeClass('d-block');
+          },1500);
+        }
+        else
+        {
+          $('#errorDel').removeClass('d-none').addClass('d-block');
+          setTimeout(()=>{
+            $('#errorDel').addClass('d-none').removeClass('d-block');
           },2000);
         }
       }
