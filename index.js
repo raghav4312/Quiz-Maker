@@ -29,6 +29,8 @@ app.use(express.static(path.join(__dirname,'views')));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+const question = require('./models/question');
+
 const userRoutes = require('./routes/userRoutes');
 const quesRoutes = require('./routes/quesRoutes');
 const testRoutes = require('./routes/testRoutes');
@@ -38,7 +40,20 @@ app.use('/ques',quesRoutes);
 app.use('/test',testRoutes);
 
 app.get('/',(req,res)=>{
-  res.send("Hello world!!!");
+  if(req.session.isLoggedIn){
+    if(req.session.adminLogin==true){
+    question.find({},(err,data)=>{
+      if(err)
+      console.log(err);
+      else
+      res.render('question',{user:req.session.loggedInUser.name})
+    })
+    }
+    else
+    res.render('home',{user:null});
+  }
+  else
+  res.render('home',{user:null});
 })
 
 app.listen(8000,()=>{

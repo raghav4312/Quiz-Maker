@@ -1,0 +1,44 @@
+<%include header.ejs%>
+<div class="container">
+    <div class="alert alert-success d-none" role="alert" id="successDel">
+        Question Deleted!
+    </div>
+    <div class="alert alert-danger d-none" role="alert" id="errorDel">
+        Something Went Wrong!
+    </div>
+    <div id="divAddNewQuestion">
+      <a id="pAddNewQuestion" href="/ques/addQuestion" class="btn btn-info form-control mb-5 mt-4">
+        Add a New Question
+      </a>
+    </div>
+    <div id="divListOfQuestions">
+      <h3 id="pQuestionListHeading" class="mb-4 text-center">List of Questions:</h3>
+
+
+      <div class="d-flex flex-wrap justify-content-center" id="quesDiv">
+          <% for(let i=0; i < data.length; i++) { %>
+            <%  if(data[i].isActive==true){%>
+
+          <div class="card" style="flex: 0 0 20%;min-width:250px; margin:10px;
+          border: 2px solid rgba(0,0,0,.125);" id="<%=data[i]._id%>">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+              <h5 class="card-title title text-center font-weight-bold"><%=data[i].title %></h5>
+              <p class="card-text Desc"><%=data[i].desc %></p> 
+              <ul>
+              <% for(let j=0;j<data[i].options.length;j++){%>
+                <li class="card-text"><%=data[i].options[j]%></li>
+              <%}%>
+              </ul>
+              <a href="ques/editQuestion/<%=data[i]._id%>">
+                <button class="btn btn-success editBtn">Edit</button>
+              </a>
+              <button class="btn btn-secondary btn-danger delBtn">Delete</button>
+            </div>
+          </div>
+          <%}%>
+        <%}%>
+      </div>
+    </div>
+  </div>
+  <%include footer.ejs%>

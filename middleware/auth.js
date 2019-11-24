@@ -11,7 +11,8 @@ let middleware = {
     {
       return next();
     }
-    res.send({error:"Login is required"});
+    res.redirect('/user/login');
+    // res.send({error:"Login is required"});
   },
   preventMultipleLogin : (req,res,next)=>{
     if(req.session.isLoggedIn==true)

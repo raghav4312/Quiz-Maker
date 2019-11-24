@@ -1,22 +1,24 @@
 <%include header.ejs%>
 <div class="container">
   
+  <% if(data.length>0){%>
     <div id="divListOfQuestion">
-        <div class="d-flex flex-wrap justify-content-center" id="quesDiv">
+      <form action="" class="">
+        <div class="d-flex flex-wrap justify-content-center align-items-center flex-column" id="quesDiv">
           <% for(let i=0; i < data.length; i++) { %>
             <%if(data[i].isActive==true){%>
-            <div class="card" id='<%= data[i]._id %>' style="width:250px;margin:10px;">
-                <div class="card-body">
+            <div class="card" id='<%= data[i]._id %>' style="width:600px;margin:10px;">
+                <div class="card-body" id="ques<%=i+1%>">
                     <h5 class="card-title title text-center font-weight-bold"><%=data[i].title %></h5>
                     <p class="card-text Desc"><%=data[i].desc %></p> 
                     <% for(let j=0;j<data[i].options.length;j++){%>
                         <div class="input-group">
                             <div class="input-group-prepend">
                               <div class="input-group-text">
-                                <input type="radio" aria-label="Radio button for following text input">
+                                <input type="radio" name="ques<%=i+1%>" aria-label="Radio button for following text input">
                               </div>
                             </div>
-                            <input type="text" class="form-control bg-white" aria-label="Text input with radio button" name="ques<%=i+1%>" value="<%=data[i].options[j]%>" readonly>
+                            <p class="form-control bg-white" name="ques<%=i+1%>Text"><%=data[i].options[j]%></p>
                           </div>
                     <%}%>
                     
@@ -26,8 +28,12 @@
             <%}%>
           </div>
           <div class="endTest d-flex justify-content-center">
-            <button type="button" class="btn btn-outline-white bg-white">End Test</button>
+            <button type="button" id="endTestBtn" class="btn btn-outline-white bg-white">End Test</button>
           </div>
+        </form>
       </div>
+    <%}else{%>
+      <h3 class="text-center text-white">Sorry! No test available at the moment.</h3>
+      <%}%>
     </div>
 <%include footer.ejs%>
