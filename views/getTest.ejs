@@ -3,7 +3,7 @@
   
   <% if(data.length>0){%>
     <div id="divListOfQuestion">
-      <form action="" class="">
+      <form action="#" class="" id="testForm">
         <div class="d-flex flex-wrap justify-content-center align-items-center flex-column" id="quesDiv">
           <% for(let i=0; i < data.length; i++) { %>
             <%if(data[i].isActive==true){%>
@@ -15,7 +15,7 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                               <div class="input-group-text">
-                                <input type="radio" name="ques<%=i+1%>" aria-label="Radio button for following text input">
+                                <input type="radio" name="ques<%=i+1%>" aria-label="Radio button for following text input" value="<%=data[i].options[j]%>">
                               </div>
                             </div>
                             <p class="form-control bg-white" name="ques<%=i+1%>Text"><%=data[i].options[j]%></p>
@@ -28,7 +28,7 @@
             <%}%>
           </div>
           <div class="endTest d-flex justify-content-center">
-            <button type="button" id="endTestBtn" class="btn btn-outline-white bg-white">End Test</button>
+            <button type="submit" id="endTestBtn" class="btn btn-outline-white bg-white">End Test</button>
           </div>
         </form>
       </div>

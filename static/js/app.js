@@ -6,6 +6,8 @@ let btnCancel = document.getElementById('btnCancel');
 let btnAdd = document.getElementById('btnAdd');
 let btnEdit = document.getElementById('btnEdit');
 let quesDiv = document.getElementById('quesDiv');
+let btnEndTest = document.getElementById('endTestBtn');
+let testForm = document.getElementById('testForm');
 
 if(btnLogin!=null)
 btnLogin.addEventListener('click',login);
@@ -21,7 +23,8 @@ if(btnEdit!=null)
 btnEdit.addEventListener('click',editQuestion);
 if(quesDiv!=null)
 quesDiv.addEventListener('click',quesFunc);
-
+if(testForm!=null)
+testForm.addEventListener('submit',endTest);
 //getting forms
 let loginForm = document.getElementById('loginForm');
 let registerForm = document.getElementById('registerForm');
@@ -239,4 +242,34 @@ function quesFunc(e)
       }
     })
   }
+}
+
+function endTest(e)
+{
+  e.preventDefault();
+  let answers = [];
+  let ids = [];
+  let len = quesDiv.children.length;
+  let quesIds = Array.from(document.getElementsByClassName('card'));
+  for (let index = 0; index < len; index++) {
+      let ele = document.getElementsByName(`ques${index+1}`);
+      for(let i = 0;i < ele.length;i++) {
+          if(ele[i].checked) {
+              answers.push(ele[i].value);
+              ids.push(quesIds[index].id);
+          }
+      }
+  }
+  console.log(ids);
+  console.log(answers);
+  $.ajax({
+      method: "POST", url: '/test/checkAnswers', data: {
+          ids: JSON.stringify(ids),
+          answers: JSON.stringify(answers),
+      },
+      success: function(data,status) {
+        alert(`Your Score is: ${data.score}`);
+          window.location.href = '/';
+      },
+  })
 }

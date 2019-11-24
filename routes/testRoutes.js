@@ -38,7 +38,7 @@ router.get('/getTest',middleware.authenticateUser,(req,res)=>{
 })
 
 router.post('/addQuestion',middleware.authenticateAdmin,(req,res)=>{
-  test.findOne({_id:`${req.body.qid}`},(err,docs)=>{
+  test.findOne({qid:`${req.body.qid}`},(err,docs)=>{
     if(err)
     {
       console.log(err);
@@ -50,7 +50,7 @@ router.post('/addQuestion',middleware.authenticateAdmin,(req,res)=>{
         res.send({error:"Question exists"});
       }
       else{
-        question.findOne({qid:`${req.body.qid}`},(err,data)=>{
+        question.findOne({_id:`${req.body.qid}`},(err,data)=>{
           if(err)
           {
             console.log(err);
@@ -74,5 +74,23 @@ router.post('/addQuestion',middleware.authenticateAdmin,(req,res)=>{
   })
   
 })
+
+router.post('/checkAnswers',async (req,res)=>{
+  let ids = JSON.parse(req.body.ids);
+    let answers = JSON.parse(req.body.answers);
+    let adminAns = await test.find();
+    let count = 0;
+    for(let i=0;i<ids.length;i++) {
+        for(let j=0;j<adminAns.length;j++) {
+            if(ids[i]==adminAns[j]._id.toString() && answers[i]==adminAns[j].answer) {
+                count++;
+                console.log(count);
+            }
+        }
+    }
+    // req.session.yourScore = count;
+    // req.session.totalQues = ids.length;
+    res.send({score:count});
+});
 
 module.exports = router;
